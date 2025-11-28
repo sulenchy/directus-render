@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  directus:
+    image: directus/directus:11.13.4
+    ports:
+      - 8055:8055
+    environment:
+      # Database (we'll use Render's PostgreSQL)
+      DB_CLIENT: 'pg'
+      DB_HOST: '${DB_HOST}'
+      DB_PORT: '5432'
+      DB_DATABASE: '${DB_DATABASE}'
+      DB_USER: '${DB_USER}'
+      DB_PASSWORD: '${DB_PASSWORD}'
+      
+      # Directus Configuration
+      SECRET: '${DIRECTUS_SECRET}'
+      PUBLIC_URL: '${PUBLIC_URL}'
+      
+      # Admin User
+      ADMIN_EMAIL: '${ADMIN_EMAIL}'
+      ADMIN_PASSWORD: '${ADMIN_PASSWORD}'
+      
+      # Security
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: '*'
+      
+      # File Storage (we'll use local for free tier)
+      STORAGE_LOCATIONS: 'local'
+      STORAGE_LOCAL_DRIVER: 'local'
+      STORAGE_LOCAL_ROOT: '/directus/uploads'

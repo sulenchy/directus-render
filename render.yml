@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: directus-cms
+    env: docker
+    docker:
+      dockerfile: Dockerfile
+    envVars:
+      - key: DB_CLIENT
+        value: pg
+      - key: DB_HOST
+        fromDatabase:
+          name: directus-db
+          property: host
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        fromDatabase:
+          name: directus-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: directus-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: directus-db
+          property: password
+      - key: DIRECTUS_SECRET
+        generateValue: true
+      - key: PUBLIC_URL
+        value: https://your-app-name.onrender.com
+      - key: ADMIN_EMAIL
+        value: admin@example.com
+      - key: ADMIN_PASSWORD
+        generateValue: true
+
+databases:
+  - name: directus-db
+    plan: free
